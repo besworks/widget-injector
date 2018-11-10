@@ -1,6 +1,6 @@
 // WIDGET CONSTRUCTOR
-function Widget(type, controller) {
-  document.addEventListener(`${type}-init`, event => {
+function Widget(controller) {
+  document.addEventListener('widget-init', event => {
     let w = event.target;
     // ONLY CALL THE CONTROLLER ONCE PER INSTANCE OF THE WIDGET
     if (w.getAttribute('initialized') == 'true') { return; }
@@ -28,7 +28,7 @@ let content = new Range().createContextualFragment(`
   <div id="myWidget"> It's a Widget! </div>
   <script>
     // CALL THE WIDGET CONSTRUCTOR FROM INSIDE THE WIDGET CONTENT
-    Widget('my-widget', widget => {
+    Widget(widget => {
       console.log(widget);
       let el = widget.shadowRoot.querySelector('#myWidget');
       el.classList.add('test');
@@ -43,4 +43,4 @@ document.body.appendChild(widget);
 widget.shadowRoot.appendChild(content);
 
 // INITIALIZE THE WIDGET
-widget.dispatchEvent(new Event('my-widget-init', { bubbles : true, composed : true }));
+widget.dispatchEvent(new Event('widget-init', { bubbles : true, composed : true }));
