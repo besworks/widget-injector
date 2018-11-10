@@ -1,6 +1,13 @@
 # Widget Injector
 
-This project is a workaround for the fact that [`document.currentScript`](https://developer.mozilla.org/en-US/docs/Web/API/Document/currentScript) is `null` from within a `<script>` element that resides inside a [`ShadowRoot`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot).
+With the deprecation of HTML Imports an alternate method of loading WebComponents for use/re-use is required.
+
+### Goals
+
+1. Enable loading a self-contained widget by adding only a single script tag to an HTML document.
+2. Work around the fact that [`document.currentScript`](https://developer.mozilla.org/en-US/docs/Web/API/Document/currentScript) is `null` from within a `<script>` element that resides inside a [`ShadowRoot`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot).
+
+### Examples
 
 `index.html` contains four test cases:
 
