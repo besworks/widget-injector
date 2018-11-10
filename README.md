@@ -28,3 +28,5 @@ With the deprecation of HTML Imports an alternate method of loading WebComponent
 3. Passing attributes to a widget from it's loader script element
 4. Injecting a second disparate widget
 5. Injecting an invalid widget
+
+`widget-barebones-test.html` and `widget-barebones.js` contain a basic proof of concept with hard-coded identifiers and some comments.
