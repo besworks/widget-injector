@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Widget Test Page </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      
+      p {
+        padding: 1rem;
+      }
+      
+      #widget1 p {
+        background-color: red;
+      }
+      
+      #mywidget {
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1> Widget Test Page </h1>
+    <script id="widget1" src="widget-injector.js" data-type="widget-test"></script>
+    <script id="widget2" src="widget-injector.js" data-type="widget-test"></script>
+    <script src="widget-injector.js" data-type="widget-test" aria-label="testing123" tabindex="10"></script>
+    <script id="widget4" src="widget-injector.js" data-type="widget-different"></script>
+  </body>
+</html>

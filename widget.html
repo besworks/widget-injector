@@ -1,0 +1,9 @@
+<link rel="stylesheet" href="./widget.css">
+
+<p id="mywidget"> test </p>
+
+<script>
+  Widget('widget-test', widget => {
+    widget.shadowRoot.querySelector('#mywidget').classList.add('active');
+  });
+</script>

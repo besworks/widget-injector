@@ -1,0 +1,11 @@
+#mywidget {
+  background-color: skyblue;
+}
+
+#mywidget.active {
+  background-color: limegreen;
+}
+
+#mywidget.different {
+  background-color: orange;
+}
