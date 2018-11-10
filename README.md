@@ -21,7 +21,7 @@ With the deprecation of HTML Imports an alternate method of loading WebComponent
 
 ### Examples
 
-`index.html` contains four test cases:
+`index.html` contains five test cases:
 
 1. Injecting a widget
 2. Injecting a duplicate widget
