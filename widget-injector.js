@@ -24,7 +24,7 @@
       }
     });
   }
-
+  
   let loader = document.currentScript;
   let source = loader.dataset.content;
   let widget = document.createElement('widget-instance');
@@ -38,12 +38,38 @@
   
   xhr.open('GET', source);
   xhr.addEventListener('load', () => {
-    widget.shadowRoot.appendChild(new Range().createContextualFragment(xhr.responseText));
+    let content = new Range().createContextualFragment(xhr.responseText);
+    widget.shadowRoot.appendChild(content);
     loader.parentNode.replaceChild(widget, loader);
-    widget.dispatchEvent(new Event('widget-init', {
-      bubbles : true,
-      composed : true
-    }));
+    
+    function triggerWidget() {
+      widget.dispatchEvent(new Event('widget-init', {
+        bubbles : true,
+        composed : true
+      }));
+    }
+    
+    let scripts = [...widget.shadowRoot.querySelectorAll('script[src]')];
+    
+    function delayedTrigger() {
+      scripts.splice(scripts.indexOf(this), 1);
+
+      if (scripts.length) {
+        return;
+      } else {
+        triggerWidget();
+      }
+    }
+
+    if (scripts.length) {
+      scripts.forEach(s => {
+        s.addEventListener('load', delayedTrigger.bind(s));
+        s.addEventListener('error', delayedTrigger.bind(s));
+      });
+    } else {
+      triggerWidget();
+    }
+
   });
   xhr.send();
 })();
