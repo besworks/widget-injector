@@ -7,7 +7,7 @@ A simple method of loading self-contained HTML/CSS/JS widgets. Your content is i
 In your host file :
 
 ```
-<script src="widget-injector.js data-content="widget.html">
+<script src="widget-injector.js data-content="widget.html"></script>
 ```
 
 In your widget file :
@@ -34,7 +34,7 @@ In your widget file :
 All [`data-*`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*) attributes will be copied from the loader `<script>` element to the `<widget-instance>` element and thus can be used for runtime configuration options. The `id` attribute will also be carried over if it is set.
 
 ```
-<script src="widget-injector.js" id="widget-test" data-content="widget.html" data-client-id="42">
+<script src="widget-injector.js" id="widget-test" data-content="widget.html" data-client-id="42"></script>
 ```
 
 Becomes...
