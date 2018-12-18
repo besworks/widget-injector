@@ -31,7 +31,7 @@ In your widget file :
 
 ## Notes
 
-All [`data-*`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*) attributes will be copied from the loader `<script>` element to the `<widget-instance>` element and thus can be used for runtime configuration options. The `id` attribute will also be carried over.
+All [`data-*`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*) attributes will be copied from the loader `<script>` element to the `<widget-instance>` element and thus can be used for runtime configuration options. The `id` attribute will also be carried over if it is set.
 
 ```
 <script src="widget-injector.js" id="widget-test" data-content="widget.html" data-client-id="42">
