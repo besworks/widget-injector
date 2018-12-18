@@ -1,32 +1,53 @@
-# Widget Injector
+## Widget Injector
 
-With the deprecation of HTML Imports an alternate method of loading WebComponents for use/re-use is required.
+A simple method of loading self-contained HTML/CSS/JS widgets. Your content is insterted into the host page as a custom `<widget-instance>` element with a [ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot).
 
-### Goals
+## Usage
 
-1. Enable loading a self-contained widget from a single html file by adding only a single script tag to an HTML document.
-2. Work around the fact that [`document.currentScript`](https://developer.mozilla.org/en-US/docs/Web/API/Document/currentScript) is `null` from within a `<script>` element that resides inside a [`ShadowRoot`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot).
+In your host file :
 
-### Execution Flow
+```
+<script src="widget-injector.js data-content="widget.html">
+```
 
-- A `<script>` element is included at any point in the document body. The `src` attribute must point to `widget-injector.js` and a `data-type` attribute must be provided that matches an entry in `widget-list.js`.
+In your widget file :
 
-- `WidgetInjector` tests to see if the widget framework is available and loads it if necessary before instantiating the widget. The widget framework makes two global functions available. `WidgetLoader` and `Widget`.
+```
+<style>
+    <!-- css for your widget -->
+</style>
 
-- `WidgetLoader` is called automatically and the widget's content is loaded asynchronously using the http header "cache-control: max-stale" to prevent duplicate requests back to the server.
+<!-- your html markup goes here -->
 
-- Inside the widget's html file, a script element must call the `Widget` function passing it's `type` (matching the entry in `widget-list.js`) and a `controller` function that takes one argument which will contain a reference to the widget host element. The `Widget` function adds an `EventListener` to the host document for the event `${widget.type}-init`.
+<script>
+    Widget(w => {
+        console.log(w);
+        // w is a reference to the host element
+        // use it however you need...
+        // example : w.shadowRoot.querySelector('#your_element');
+    });
+</script>
+```
 
-- The loader script element is replaced with a `<widget-instance>` custom element containing the widget's `ShadowRoot` and the `${widget.type}-init` event is dispatched on the widget element itself which then bubbles up to the host document object where the previously added `EventListener` calls the `controller` function with the `EventTarget` as it's one parameter.
+## Notes
 
-### Examples
+All [`data-*`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*) attributes will be copied from the loader `<script>` element to the `<widget-instance>` element and thus can be used for runtime configuration options. The `id` attribute will also be carried over.
 
-`index.html` contains five test cases:
+```
+<script src="widget-injector.js" id="widget-test" data-content="widget.html" data-client-id="42">
+```
 
-1. Injecting a widget
-2. Injecting a duplicate widget
-3. Passing attributes to a widget from it's loader script element
-4. Injecting a second disparate widget
-5. Injecting an invalid widget
+Becomes...
 
-`widget-barebones-test.html` and `widget-barebones.js` contain a basic proof of concept with hard-coded identifiers and some comments.
+```
+<widget-instance id="widget-test" data-content="widget.html" data-client-id="42"></widget-instance>
+```
+
+Therefore...
+
+```
+Widget(w => {
+    console.log(w.id); // == "widget-test"
+    console.log(w.dataset.clientId); // == "42"
+});
+```

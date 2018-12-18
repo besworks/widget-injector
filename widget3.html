@@ -1,0 +1,77 @@
+<style>
+  main {
+    position: fixed;
+    bottom: 5rem;
+    right: 1rem;
+    background-color: white;
+    margin-bottom: 1rem;
+    border: 0;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 0 0.5rem 0 rgba(0,0,0,0.7);
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    pointer-events: none;
+  }
+  
+  main.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  main > p {
+    margin: 0;
+  }
+  
+  main > output {
+    display: block;
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  button#toggle {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    border: 0;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: white;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    background-color: dodgerblue;
+    box-shadow: 0 0 0.5rem 0 rgba(0,0,0,0.5);
+    cursor: pointer;
+  }
+  
+  button#toggle:focus {
+    outline: 0;
+  }
+</style>
+
+<main>
+  <p> A more complex widget. </p>
+  <output></output>
+</main>
+
+<button id="toggle"> TEST </button>
+
+<script>
+  Widget(widget => {
+    let ui = {
+      main : widget.shadowRoot.querySelector('main'),
+      toggle : widget.shadowRoot.querySelector('#toggle'),
+      status : widget.shadowRoot.querySelector('main > output')
+    };
+    
+    switch (widget.dataset.clientId) {
+      case '42' : ui.status.value = 'CUSTOMIZED'; break;
+    }
+    
+    ui.toggle.addEventListener('click', event => {
+      ui.main.classList.toggle('active');
+    });
+  });
+</script>
