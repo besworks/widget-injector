@@ -1,8 +1,8 @@
 <style>
-  #myWidget { background-color: orange; padding: 1rem; margin-bottom: 1rem; }
+  #myWidget { background-color: orange; padding: 1rem; margin: 1rem; }
   #myWidget.test { background-color: limegreen; }
 </style>
-<div id="myWidget"> It's a Widget! </div>
+<div id="myWidget"> A block level Widget! </div>
 <script>
   Widget(widget => {
     widget.shadowRoot.querySelector('#myWidget').classList.add('test');
